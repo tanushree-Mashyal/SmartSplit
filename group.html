@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SmartSplit - Groups</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="group.html">Groups</a>
+        <a href="add-expense.html">Add Expense</a>
+        <a href="settlements.html">Settlements</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+
+
+    <!-- Header -->
+    <header>
+        <h1>SmartSplit</h1>
+        <p>Groups</p>
+    </header>
+
+
+    <main>
+
+        <!-- Group List -->
+        <section>
+
+            <h2>Groups</h2>
+
+            <div id="groupList"></div>
+
+        </section>
+
+
+        <!-- Create New Group -->
+        <section>
+
+            <button
+                type="button"
+                id="addGroupButton"
+            >
+                + Create New Group
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- Data layer MUST load first -->
+    <script src="data.js"></script>
+
+    <!-- Groups logic -->
+    <script src="group.js"></script>
+
+</body>
+
+</html>

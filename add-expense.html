@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartSplit - Add Expense</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="group.html">Groups</a>
+        <a href="add-expense.html">Add Expense</a>
+        <a href="settlements.html">Settlements</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+
+
+    <header>
+        <h1>SmartSplit</h1>
+        <p id="pageSubtitle">Add Expense</p>
+    </header>
+
+
+    <form id="expense-form">
+
+        <label for="group-select">Group:</label>
+
+        <select id="group-select" required>
+            <option value="">Select group</option>
+        </select>
+
+
+        <br><br>
+
+
+        <label for="expense-name">Expense Name:</label>
+
+        <input
+            type="text"
+            id="expense-name"
+            name="expense-name"
+            placeholder="Example: Dinner"
+            required
+        >
+
+
+        <br><br>
+
+
+        <label for="amount">Amount:</label>
+
+        <input
+            type="number"
+            id="amount"
+            name="amount"
+            placeholder="Enter amount"
+            min="0"
+            step="0.01"
+            required
+        >
+
+
+        <br><br>
+
+
+        <label for="paid-by">Paid By:</label>
+
+        <select id="paid-by" name="paid-by" required>
+            <option value="">Select person</option>
+        </select>
+
+
+        <br><br>
+
+
+        <label for="date">Date:</label>
+
+        <input
+            type="date"
+            id="date"
+            name="date"
+            required
+        >
+
+
+        <br><br>
+
+
+        <label for="category">Category:</label>
+
+        <select id="category" name="category">
+
+            <option value="">
+                Select category
+            </option>
+
+            <option value="food">
+                Food
+            </option>
+
+            <option value="travel">
+                Travel
+            </option>
+
+            <option value="accommodation">
+                Accommodation
+            </option>
+
+            <option value="shopping">
+                Shopping
+            </option>
+
+            <option value="other">
+                Other
+            </option>
+
+        </select>
+
+
+        <br><br>
+
+
+        <p>People Involved:</p>
+
+        <div id="people-container">
+            <p>Select a group first.</p>
+        </div>
+
+
+        <br>
+
+
+        <p>Split Method:</p>
+
+
+        <input
+            type="radio"
+            id="equal"
+            name="split-method"
+            value="equal"
+        >
+
+        <label for="equal">
+            Equal
+        </label>
+
+
+        <input
+            type="radio"
+            id="unequal"
+            name="split-method"
+            value="unequal"
+        >
+
+        <label for="unequal">
+            Unequal
+        </label>
+
+
+        <div id="unequal-inputs"></div>
+
+        <div id="split-result"></div>
+
+
+        <br><br>
+
+
+        <label for="notes">Notes:</label>
+
+        <br>
+
+        <textarea
+            id="notes"
+            name="notes"
+            placeholder="Optional notes"
+        ></textarea>
+
+
+        <br><br>
+
+
+        <label for="receipt">
+            Upload Receipt:
+        </label>
+
+        <input
+            type="file"
+            id="receipt"
+            name="receipt"
+            accept="image/*,.pdf"
+        >
+
+
+        <br><br>
+
+
+        <button
+            type="submit"
+            id="submitExpenseButton"
+        >
+            Add Expense
+        </button>
+
+    </form>
+
+
+    <script src="data.js"></script>
+    <script src="add-expense.js"></script>
+
+</body>
+
+</html>

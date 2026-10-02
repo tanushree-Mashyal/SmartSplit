@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SplitTrack - Create Group</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="group.html">Groups</a>
+        <a href="add-expense.html">Add Expense</a>
+        <a href="settlements.html">Settlements</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+
+
+    <header>
+        <h1>SplitTrack</h1>
+        <p>Create New Group</p>
+    </header>
+
+
+    <main>
+
+        <section>
+
+            <form id="createGroupForm">
+
+    <label for="groupName">
+        Group Name
+    </label>
+
+    <input
+        type="text"
+        id="groupName"
+        placeholder="Example: Goa Trip"
+        required
+    >
+
+    <label for="members">
+        Number of Members
+    </label>
+
+    <input
+        type="number"
+        id="members"
+        placeholder="Example: 5"
+        min="1"
+        required
+    >
+
+    <div id="memberInputs"></div>
+
+    <button type="submit">
+        Create Group
+    </button>
+
+</form>
+        </section>
+
+    </main>
+
+
+    <script src="create-group.js"></script>
+    <script src="data.js"></script>
+
+</body>
+
+</html>

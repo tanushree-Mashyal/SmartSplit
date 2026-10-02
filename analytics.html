@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartSplit - Analytics</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Dashboard</a>
+    <a href="group.html">Groups</a>
+    <a href="add-expense.html">Add Expense</a>
+    <a href="settlements.html">Settlements</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="profile.html">Profile</a>
+</nav>
+
+
+<h1>SmartSplit</h1>
+
+<h2>Analytics</h2>
+
+<p>Understand your spending and contribution.</p>
+
+
+<div class="analytics-container">
+
+    <!-- Overall Spending -->
+    <div class="card">
+
+        <h3>Overall Spending</h3>
+
+        <p>
+            Total Group Spending:
+            <strong id="totalGroupSpending">₹0.00</strong>
+        </p>
+
+        <p>
+            Your Contribution:
+            <strong id="yourContribution">₹0.00</strong>
+        </p>
+
+    </div>
+
+
+    <!-- Category Breakdown -->
+    <div class="card">
+
+        <h3>Category Breakdown</h3>
+
+        <div id="categoryBreakdown">
+            <p>No expenses yet.</p>
+        </div>
+
+    </div>
+
+
+    <!-- Spending Over Time -->
+    <div class="card">
+
+        <h3>Spending Over Time</h3>
+
+        <div id="spendingOverTime">
+            <p>No expense data yet.</p>
+        </div>
+
+    </div>
+
+
+    <!-- Highest Spender -->
+    <div class="card">
+
+        <h3>Highest Spender</h3>
+
+        <p id="highestSpender">
+            None - ₹0.00
+        </p>
+
+    </div>
+
+
+    <!-- Your Spending -->
+    <div class="card">
+
+        <h3>Your Spending</h3>
+
+        <p id="yourSpending">
+            You have spent ₹0.00 in total.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script src="data.js"></script>
+<script src="analytics.js"></script>
+
+</body>
+
+</html>

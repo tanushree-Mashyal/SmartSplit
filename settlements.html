@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartSplit - Settlements</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           SETTLEMENTS PAGE ONLY
+           This styling affects ONLY this page.
+           ===================================================== */
+
+        body.settlements-page {
+            min-height: 100vh;
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        body.settlements-page header {
+            width: 92%;
+            max-width: 1250px;
+            margin: 38px auto 30px;
+            padding: 38px 20px;
+
+            box-sizing: border-box;
+
+            background: linear-gradient(135deg, #1d3475, #43106f);
+            border: 1px solid #6675ff;
+            border-radius: 22px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30);
+        }
+
+        body.settlements-page header h1 {
+            margin: 0;
+            padding: 0;
+
+            color: #2563eb;
+            font-size: 42px;
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+        body.settlements-page header p {
+            margin: 10px 0 0;
+            padding: 0;
+
+            color: #93c5fd;
+            font-size: 20px;
+
+            text-align: center;
+        }
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        body.settlements-page main {
+            width: 92%;
+            max-width: 1250px;
+
+            margin: 0 auto 50px;
+            padding: 0;
+
+            box-sizing: border-box;
+        }
+
+        /* Intro paragraph */
+        body.settlements-page main > p {
+            width: 100%;
+            margin: 0 0 25px;
+
+            color: #cbd5e1;
+            font-size: 17px;
+
+            text-align: center;
+        }
+
+        /* =====================================================
+           SECTIONS
+           ===================================================== */
+
+        body.settlements-page main > section {
+            width: 100%;
+
+            margin: 0 0 28px;
+            padding: 28px;
+
+            box-sizing: border-box;
+
+            background: #111c35;
+            border: 1px solid #263a68;
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+        }
+
+        body.settlements-page main > section h2 {
+            margin: 0 0 20px;
+
+            color: #60a5fa;
+            font-size: 27px;
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+        /* =====================================================
+           PAYMENT REMINDER AREA
+           Created dynamically by settlements.js
+           ===================================================== */
+
+        body.settlements-page #paymentReminderArea {
+            width: 100%;
+
+            margin: 0 0 25px !important;
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #172554;
+            border: 1px solid #3157a8;
+            border-radius: 14px;
+
+            text-align: center;
+        }
+
+        body.settlements-page #paymentReminderArea h3 {
+            margin: 0 0 10px;
+
+            color: #93c5fd;
+            font-size: 21px;
+        }
+
+        body.settlements-page #paymentReminderArea p {
+            margin: 8px 0 15px;
+
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+
+        body.settlements-page #paymentReminderButton {
+            margin-top: 5px;
+        }
+
+        /* =====================================================
+           SETTLEMENT LISTS
+           ===================================================== */
+
+        body.settlements-page #youOweList,
+        body.settlements-page #othersOweYouList {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            box-sizing: border-box;
+        }
+
+        /* =====================================================
+           INDIVIDUAL SETTLEMENT CARDS
+           ===================================================== */
+
+        body.settlements-page .settlement-card {
+            width: 100%;
+
+            margin: 0 0 16px;
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #172554;
+            border: 1px solid #3157a8;
+            border-radius: 14px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        body.settlements-page .settlement-card:last-child {
+            margin-bottom: 0;
+        }
+
+        body.settlements-page .settlement-card h3 {
+            margin: 0 0 8px;
+
+            color: #bfdbfe;
+            font-size: 21px;
+        }
+
+        body.settlements-page .settlement-card p {
+            margin: 8px 0;
+
+            color: #e2e8f0;
+            font-size: 16px;
+        }
+
+        /* =====================================================
+           BUTTONS
+           ===================================================== */
+
+        body.settlements-page button {
+            padding: 11px 20px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: #2563eb;
+            color: white;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        body.settlements-page button:hover {
+            background: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        body.settlements-page button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* =====================================================
+           PAYMENT BOX
+           Created by settlements.js
+           ===================================================== */
+
+        body.settlements-page .payment-box {
+            margin-top: 15px;
+            padding: 15px;
+
+            box-sizing: border-box;
+
+            background: #0f1b38;
+            border: 1px solid #263a68;
+            border-radius: 10px;
+        }
+
+        body.settlements-page .payment-box label {
+            display: block;
+            margin-bottom: 8px;
+
+            color: #bfdbfe;
+            font-weight: 600;
+        }
+
+        body.settlements-page .payment-box input {
+            width: 100%;
+
+            margin-bottom: 10px;
+            padding: 11px 12px;
+
+            box-sizing: border-box;
+
+            background: #0f172a;
+            color: #e5e7eb;
+
+            border: 1px solid #3157a8;
+            border-radius: 8px;
+
+            font-size: 15px;
+        }
+
+        body.settlements-page .payment-box input:focus {
+            outline: none;
+            border-color: #60a5fa;
+        }
+
+        /* =====================================================
+           EMPTY STATES
+           ===================================================== */
+
+        body.settlements-page #youOweList > p,
+        body.settlements-page #othersOweYouList > p {
+            width: 100%;
+
+            margin: 0;
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #0f1b38;
+            border-radius: 12px;
+
+            color: #cbd5e1;
+
+            text-align: center;
+        }
+
+        /* =====================================================
+           SETTLEMENT SUMMARY
+           ===================================================== */
+
+        body.settlements-page #settlementSummary {
+            text-align: center;
+        }
+
+        body.settlements-page #settlementSummary > div {
+            width: 100%;
+            max-width: 650px;
+
+            margin: 12px auto;
+            padding: 15px 20px;
+
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #172554;
+            border: 1px solid #3157a8;
+            border-radius: 12px;
+        }
+
+        body.settlements-page #settlementSummary span:first-child {
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+
+        body.settlements-page #settlementSummary span:last-child {
+            color: #bfdbfe;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* =====================================================
+           NET BALANCE
+           ===================================================== */
+
+        body.settlements-page #netBalance {
+            display: inline-block;
+
+            min-width: 120px;
+
+            padding: 10px 18px;
+
+            box-sizing: border-box;
+
+            background: #172554;
+            border: 1px solid #3b82f6;
+            border-radius: 10px;
+
+            color: #bfdbfe;
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            body.settlements-page main {
+                width: 94%;
+            }
+
+            body.settlements-page header {
+                width: 94%;
+                padding: 30px 15px;
+            }
+
+            body.settlements-page header h1 {
+                font-size: 34px;
+            }
+
+            body.settlements-page header p {
+                font-size: 18px;
+            }
+
+            body.settlements-page main > section {
+                padding: 20px;
+            }
+
+            body.settlements-page #settlementSummary > div {
+                flex-direction: column;
+                gap: 8px;
+
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+
+<body class="settlements-page">
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="group.html">Groups</a>
+        <a href="add-expense.html">Add Expense</a>
+        <a href="settlements.html">Settlements</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <header>
+        <h1>SmartSplit</h1>
+        <p>Settlements</p>
+    </header>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main>
+
+        <p>
+            See who owes whom and settle your expenses.
+        </p>
+
+
+        <!-- =================================================
+             YOU OWE
+             ================================================= -->
+
+        <section>
+
+            <h2>You Owe</h2>
+
+            <div id="youOweList">
+                <p>
+                    You don't owe anyone right now.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             OTHERS OWE YOU
+             ================================================= -->
+
+        <section>
+
+            <h2>Others Owe You</h2>
+
+            <div id="othersOweYouList">
+                <p>
+                    No one owes you money right now.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SETTLEMENT SUMMARY
+             ================================================= -->
+
+        <section id="settlementSummary">
+
+            <h2>Settlement Summary</h2>
+
+            <div>
+                <span>Total You Owe:</span>
+                <span id="totalYouOwe">₹0.00</span>
+            </div>
+
+            <div>
+                <span>Total Others Owe You:</span>
+                <span id="totalOthersOweYou">₹0.00</span>
+            </div>
+
+            <div>
+                <span>Net Balance:</span>
+                <span id="netBalance">Settled</span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         EXISTING DATA + SETTLEMENT JAVASCRIPT
+         DO NOT CHANGE
+         ===================================================== -->
+
+    <script src="data.js"></script>
+    <script src="settlements.js"></script>
+
+</body>
+
+</html>

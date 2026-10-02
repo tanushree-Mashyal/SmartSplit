@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Important for future Android/Capacitor conversion -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SplitTrack - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="group.html">Groups</a>
+        <a href="add-expense.html">Add Expense</a>
+        <a href="settlements.html">Settlements</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+
+    <header>
+        <h1>SplitTrack</h1>
+        <p>Dashboard</p>
+    </header>
+
+    <main>
+
+        <!-- Financial Summary -->
+        <section>
+            <h2>Your Financial Summary</h2>
+
+            <div>
+                <h3>Total You Owe</h3>
+                <p id="totalOwe">₹0</p>
+            </div>
+
+            <div>
+                <h3>Total Others Owe You</h3>
+                <p id="totalOwed">₹0</p>
+            </div>
+
+            <div>
+                <h3>Net Balance</h3>
+                <p id="netBalance">₹0</p>
+            </div>
+        </section>
+
+
+        <!-- Your Groups -->
+        <section>
+            <h2>Your Groups</h2>
+
+            <div id="dashboardGroupList">
+                <p>No groups yet. Create your first group!</p>
+            </div>
+
+        </section>
+
+
+        <!-- Create Group -->
+        <section>
+            <button type="button" id="createGroupButton">
+                + Create New Group
+            </button>
+        </section>
+
+
+        <!-- Recent Expenses -->
+        <section>
+            <h2>Recent Expenses</h2>
+
+            <div id="recentExpenses">
+                No recent expenses.
+            </div>
+        </section>
+
+    </main>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

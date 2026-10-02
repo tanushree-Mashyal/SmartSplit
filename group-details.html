@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+```
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartSplit - Group Details</title>
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+```
+<!-- Navigation -->
+<nav>
+    <a href="index.html">Dashboard</a>
+    <a href="group.html">Groups</a>
+    <a href="add-expense.html">Add Expense</a>
+    <a href="settlements.html">Settlements</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="profile.html">Profile</a>
+</nav>
+
+
+<!-- Header -->
+<header>
+    <h1>SmartSplit</h1>
+    <p>Group Details</p>
+</header>
+
+
+<main>
+
+    <!-- Group Header -->
+    <section>
+
+        <h2 id="groupName"></h2>
+
+        <p id="groupMemberCount"></p>
+
+    </section>
+
+
+    <!-- Members -->
+    <section>
+
+        <h2>Members</h2>
+
+        <ul id="memberList">
+            <li>No members added yet.</li>
+        </ul>
+
+    </section>
+    <section>
+
+    <h2>Add Expense</h2>
+
+    <p>
+        Add an expense to this group and choose
+        how the expense should be split.
+    </p>
+
+    <button type="button" id="addExpenseButton">
+        + Add Expense
+    </button>
+
+</section>
+
+
+    <!-- Who Paid What -->
+    <section>
+
+        <h2>Who Paid What?</h2>
+
+        <div id="paidList">
+            <p>No expenses yet.</p>
+        </div>
+
+    </section>
+
+
+    <!-- Who Owes Whom -->
+    <section>
+
+        <h2>Who Owes Whom?</h2>
+
+        <div id="oweList">
+            <p>No outstanding balances.</p>
+        </div>
+
+    </section>
+
+
+    
+
+    <!-- Settlement Status -->
+    <section>
+
+        <h2>Settlement Status</h2>
+
+        <p id="settlementStatus">
+            Nothing to settle yet.
+        </p>
+
+        <button type="button" id="settleButton">
+    Settle Up
+</button>
+
+    </section>
+
+
+    <!-- Back -->
+    <section>
+<button type="button" onclick="window.location.href='group.html'">
+    Back to Groups
+</button>
+    </section>
+
+</main>
+
+<script src="data.js"></script>
+<script src="group-details.js"></script>
+
+
+
+</body>
+
+</html>

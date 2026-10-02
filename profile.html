@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartSplit - Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="group.html">Groups</a>
+    <a href="add-expense.html">Add Expense</a>
+    <a href="settlements.html">Settlements</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="profile.html">Profile</a>
+</nav>
+
+    <h1>SmartSplit</h1>
+
+    <h2>Profile & Settings</h2>
+
+    <!-- Profile Information -->
+
+    <h3>Profile Information</h3>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name">
+
+    <br><br>
+
+    <label for="upi">UPI ID:</label>
+<input type="text" id="upi" name="upi" placeholder="example@upi">
+    
+
+    <br><br>
+
+    <!-- Profile Picture -->
+
+    <h3>Profile Picture</h3>
+
+    <input type="file" id="profile-picture" name="profile-picture">
+
+    <br><br>
+
+    <!-- Currency -->
+
+    <h3>Currency</h3>
+
+    <label for="currency">Select Currency:</label>
+
+    <select id="currency" name="currency">
+        <option value="inr">Indian Rupee (₹)</option>
+        <option value="usd">US Dollar ($)</option>
+        <option value="eur">Euro (€)</option>
+        <option value="gbp">British Pound (£)</option>
+    </select>
+
+    <br><br>
+
+    <!-- Payment Reminder -->
+
+    <h3>Payment Reminder</h3>
+
+    <p>
+        Get a reminder every 48 hours when a payment is still pending.
+    </p>
+
+    <input type="checkbox" id="payment-reminder" name="payment-reminder">
+
+    <label for="payment-reminder">
+        Enable payment reminders
+    </label>
+
+    <br><br>
+
+    <button type="button" id="save-profile-button">
+    Save Changes
+</button>
+    <!-- Logout -->
+    <button type="button" id="logout-button">Logout</button>
+    
+</body>
+<script src="data.js"></script>
+<script src="profile.js"></script>
+
+
+</html>
+

@@ -1,0 +1,1259 @@
+/* =========================================================
+   SMARTSPLIT - COMPLETE COMMON STYLE
+   Dark Blue + Purple + Soft Red Theme
+   ========================================================= */
+
+
+/* =========================================================
+   1. GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    background-color: #0f172a;
+    color: #e2e8f0;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   2. NAVIGATION
+   ========================================================= */
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    padding: 16px 20px;
+
+    background-color: #111827;
+
+    border-bottom: 1px solid #334155;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+
+    position: relative;
+    z-index: 10;
+}
+
+nav a {
+    text-decoration: none;
+    color: #93c5fd;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.2s ease;
+}
+
+nav a:hover {
+    color: #60a5fa;
+}
+
+
+/* =========================================================
+   3. COMMON HEADER
+   Used by Dashboard / Groups / Group Details
+   ========================================================= */
+
+header {
+    width: 92%;
+    max-width: 1250px;
+
+    margin: 38px auto 30px;
+
+    padding: 38px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #1d3475,
+        #43106f
+    );
+
+    border: 1px solid #6675ff;
+
+    border-radius: 22px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.30);
+}
+
+header h1 {
+    margin: 0;
+
+    color: #2563eb;
+
+    font-size: 42px;
+    font-weight: 700;
+
+    text-align: center;
+}
+
+header p {
+    margin: 10px 0 0;
+
+    color: #93c5fd;
+
+    font-size: 20px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   4. GENERAL HEADINGS
+   ========================================================= */
+
+h1 {
+    color: #2563eb;
+}
+
+h2 {
+    color: #60a5fa;
+}
+
+h3 {
+    color: #93c5fd;
+}
+
+p {
+    color: #cbd5e1;
+}
+
+
+/* =========================================================
+   5. MAIN CONTENT
+   ========================================================= */
+
+main {
+    width: 92%;
+    max-width: 1100px;
+
+    margin: 30px auto;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   6. SECTIONS / CARDS
+   ========================================================= */
+
+section {
+    background-color: #172033;
+
+    border: 1px solid #334155;
+
+    padding: 22px;
+
+    margin-bottom: 22px;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.25);
+}
+
+section h2 {
+    margin-top: 0;
+
+    color: #60a5fa;
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   7. BUTTONS
+   Soft red
+   ========================================================= */
+
+button {
+    background-color: #d95555;
+
+    color: #ffffff;
+
+    border: 1px solid #e06a6a;
+
+    padding: 11px 20px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.20);
+}
+
+button:hover {
+    background-color: #e35d5d;
+
+    border-color: #f08080;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   8. DASHBOARD
+   ========================================================= */
+
+section div {
+    box-sizing: border-box;
+}
+
+
+/* Financial summary */
+
+#totalYouOwe,
+#totalOthersOweYou,
+#netBalance {
+    background-color: #172554;
+
+    border: 1px solid #3b82f6;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    text-align: center;
+
+    color: #93c5fd;
+
+    font-weight: bold;
+}
+
+
+/* Dashboard group grid */
+
+#dashboardGroupList {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+#dashboardGroupList .group-card {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 18px;
+
+    background-color: #172033;
+
+    border: 1px solid #3b4a68;
+
+    border-radius: 12px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   9. GROUPS PAGE
+   ========================================================= */
+
+#groupList {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+.group-card {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 20px;
+
+    background-color: #172033;
+
+    border: 1px solid #3b4a68;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.22);
+}
+
+.group-card h3 {
+    margin-top: 0;
+
+    color: #60a5fa;
+
+    font-size: 20px;
+}
+
+.group-card p {
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    margin: 8px 0;
+}
+
+
+/* Group buttons */
+
+.group-card button {
+    margin-top: 10px;
+}
+
+
+/* Create group */
+
+#createGroupForm {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    max-width: 600px;
+
+    margin: 0 auto;
+}
+
+#createGroupForm label {
+    color: #cbd5e1;
+
+    font-weight: bold;
+}
+
+#createGroupForm input {
+    width: 100%;
+
+    padding: 11px;
+
+    background-color: #111827;
+
+    color: #e2e8f0;
+
+    border: 1px solid #475569;
+
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   10. GROUP DETAILS
+   ========================================================= */
+
+#memberList {
+    padding-left: 22px;
+}
+
+#memberList li {
+    color: #cbd5e1;
+
+    margin-bottom: 8px;
+}
+
+
+/* Who Paid What */
+
+#paidList {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+#paidList p {
+    margin: 0;
+
+    padding: 15px;
+
+    background-color: #172554;
+
+    border: 1px solid #365aa8;
+
+    border-radius: 10px;
+
+    color: #dbeafe;
+}
+
+
+/* Who Owes Whom */
+
+#oweList {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+#oweList p {
+    margin: 0;
+
+    padding: 15px;
+
+    background-color: #241b38;
+
+    border: 1px solid #5b4385;
+
+    border-radius: 10px;
+
+    color: #ddd6fe;
+}
+
+
+/* Settlement status */
+
+#settlementStatus {
+    padding: 15px;
+
+    background-color: #172554;
+
+    border: 1px solid #365aa8;
+
+    border-radius: 10px;
+
+    color: #93c5fd;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   11. ADD EXPENSE
+   ========================================================= */
+
+form {
+    width: 92%;
+
+    max-width: 650px;
+
+    margin: 30px auto;
+
+    padding: 28px;
+
+    background-color: #172033;
+
+    border: 1px solid #475569;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.28);
+}
+
+
+/* Add Expense page headings */
+
+body > h1,
+body > h2 {
+    text-align: center;
+}
+
+body > h1 {
+    margin-top: 40px;
+
+    color: #2563eb;
+}
+
+body > h2 {
+    color: #60a5fa;
+}
+
+
+/* Labels */
+
+label {
+    color: #cbd5e1;
+
+    font-weight: 600;
+}
+
+
+/* Inputs */
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+
+    padding: 11px;
+
+    margin-top: 7px;
+
+    background-color: #111827;
+
+    color: #e2e8f0;
+
+    border: 1px solid #475569;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+/* Placeholder */
+
+input::placeholder,
+textarea::placeholder {
+    color: #64748b;
+}
+
+
+/* Focus */
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+
+/* Textarea */
+
+textarea {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+
+/* Checkbox / radio */
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: #3b82f6;
+}
+
+
+/* File */
+
+input[type="file"] {
+    width: 100%;
+
+    margin-top: 8px;
+
+    color: #cbd5e1;
+}
+
+
+/* Submit */
+
+button[type="submit"] {
+    width: 100%;
+
+    margin-top: 12px;
+
+    background-color: #d95555;
+}
+
+
+/* =========================================================
+   12. RECENT EXPENSES
+   ========================================================= */
+
+#recentExpenses {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+#recentExpenses > div {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 17px;
+
+    background-color: #172033;
+
+    border: 1px solid #3b4a68;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+#recentExpenses > div h3 {
+    margin: 0 0 10px;
+
+    color: #60a5fa;
+
+    font-size: 17px;
+}
+
+#recentExpenses > div p {
+    margin: 6px 0;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+}
+
+#recentExpenses > div hr {
+    margin-top: 12px;
+
+    border: none;
+
+    border-top: 1px solid #334155;
+}
+
+
+/* =========================================================
+   13. SETTLEMENTS
+   ========================================================= */
+
+body > h1 {
+    text-align: center;
+}
+
+body > h2 {
+    text-align: center;
+}
+
+
+/* Settlement headings */
+
+body > h3 {
+    width: 92%;
+
+    max-width: 850px;
+
+    margin: 28px auto 15px;
+
+    color: #60a5fa;
+
+    font-size: 21px;
+}
+
+
+/* Settlement cards */
+
+#youOweList,
+#othersOweYouList {
+    width: 92%;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+
+/* Individual settlement cards */
+
+#youOweList > div,
+#othersOweYouList > div {
+    width: 100%;
+
+    margin: 0 0 15px;
+
+    padding: 20px;
+
+    background-color: #241b38;
+
+    border: 1px solid #5b4385;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Settlement text */
+
+#youOweList p,
+#othersOweYouList p {
+    color: #ddd6fe;
+
+    margin: 8px 0;
+}
+
+
+/* Group breakdown */
+
+#youOweList ul,
+#othersOweYouList ul {
+    color: #c4b5fd;
+}
+
+
+/* Settlement summary */
+
+#totalYouOwe,
+#totalOthersOweYou,
+#netBalance {
+    width: 92%;
+
+    max-width: 850px;
+
+    margin: 12px auto;
+
+    padding: 15px 20px;
+
+    background-color: #172554;
+
+    border: 1px solid #3b82f6;
+
+    border-radius: 10px;
+
+    color: #bfdbfe;
+}
+
+
+/* =========================================================
+   14. ANALYTICS
+   ========================================================= */
+
+.analytics-container {
+    width: 92%;
+
+    max-width: 850px;
+
+    margin: 30px auto;
+}
+
+
+/* Analytics cards */
+
+.analytics-container .card {
+    width: 100%;
+
+    padding: 22px;
+
+    margin-bottom: 18px;
+
+    background-color: #172033;
+
+    border: 1px solid #334155;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Analytics headings */
+
+.analytics-container .card h3 {
+    margin-top: 0;
+
+    color: #60a5fa;
+
+    border-bottom: 1px solid #334155;
+
+    padding-bottom: 10px;
+}
+
+
+/* Analytics text */
+
+.analytics-container .card p {
+    color: #cbd5e1;
+
+    margin: 9px 0;
+}
+
+
+/* Your spending */
+
+.analytics-container .card:last-child p {
+    color: #86efac;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   15. PROFILE
+   ========================================================= */
+
+body > form.profile-form {
+    max-width: 650px;
+}
+
+
+/* Profile sections */
+
+.profile-section {
+    width: 92%;
+
+    max-width: 850px;
+
+    margin: 25px auto;
+
+    padding: 22px;
+
+    background-color: #172033;
+
+    border: 1px solid #334155;
+
+    border-radius: 13px;
+}
+
+
+/* Profile headings */
+
+.profile-section h3 {
+    color: #60a5fa;
+}
+
+
+/* Profile inputs */
+
+.profile-section input,
+.profile-section select {
+    background-color: #111827;
+
+    color: #e2e8f0;
+
+    border: 1px solid #475569;
+}
+
+
+/* =========================================================
+   16. DEBTS
+   ========================================================= */
+
+#debts {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+#debts .debt-card {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 18px;
+
+    background-color: #241b38;
+
+    border: 1px solid #5b4385;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   17. DELETE GROUP
+   ========================================================= */
+
+.delete-group-button {
+    background-color: #d95555;
+
+    border: 1px solid #e06a6a;
+
+    margin-left: 8px;
+}
+
+.delete-group-button:hover {
+    background-color: #e35d5d;
+}
+
+
+/* =========================================================
+   18. GENERAL LINKS
+   ========================================================= */
+
+a {
+    color: #60a5fa;
+}
+
+a:hover {
+    color: #93c5fd;
+}
+
+
+/* =========================================================
+   19. MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    #dashboardGroupList,
+    #groupList,
+    #paidList,
+    #oweList,
+    #recentExpenses,
+    #debts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    nav {
+        gap: 14px;
+
+        flex-wrap: wrap;
+
+        padding: 13px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    header {
+        width: 94%;
+
+        margin: 25px auto;
+
+        padding: 30px 15px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    header p {
+        font-size: 17px;
+    }
+
+    main {
+        width: 94%;
+    }
+
+    #dashboardGroupList,
+    #groupList,
+    #paidList,
+    #oweList,
+    #recentExpenses,
+    #debts {
+        grid-template-columns: 1fr;
+    }
+
+    form {
+        width: 94%;
+
+        padding: 20px;
+    }
+
+    #youOweList,
+    #othersOweYouList,
+    #totalYouOwe,
+    #totalOthersOweYou,
+    #netBalance {
+        width: 94%;
+    }
+}
+/* =========================================================
+   SETTLEMENTS PAGE
+   Scoped only to settlements.html
+   ========================================================= */
+
+body.settlements-page {
+    min-height: 100vh;
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+/* Main page container */
+body.settlements-page main {
+    width: 92%;
+    max-width: 1250px;
+    margin: 0 auto 50px;
+}
+
+/* Header */
+body.settlements-page header {
+    width: 92%;
+    max-width: 1250px;
+    margin: 38px auto 30px;
+    padding: 38px 20px;
+
+    background: linear-gradient(135deg, #1d3475, #43106f);
+    border: 1px solid #6675ff;
+    border-radius: 22px;
+
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30);
+}
+
+body.settlements-page header h1 {
+    margin: 0;
+    color: #2563eb;
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+}
+
+body.settlements-page header p {
+    margin: 10px 0 0;
+    color: #93c5fd;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Intro text */
+body.settlements-page main > p {
+    width: 100%;
+    margin: 0 0 25px;
+    color: #cbd5e1;
+    font-size: 17px;
+    text-align: center;
+}
+
+/* Every major settlement section */
+body.settlements-page main > section {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 0 0 28px;
+    padding: 28px;
+
+    background: #111c35;
+    border: 1px solid #263a68;
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+}
+
+/* Section headings */
+body.settlements-page main > section h2 {
+    margin: 0 0 20px;
+    color: #60a5fa;
+    font-size: 27px;
+    text-align: center;
+}
+
+/* Reminders section */
+body.settlements-page #reminderSection {
+    text-align: center;
+}
+
+body.settlements-page #reminderSection h3 {
+    margin-top: 0;
+    color: #93c5fd;
+    font-size: 21px;
+}
+
+body.settlements-page #reminderSection p {
+    color: #cbd5e1;
+    font-size: 16px;
+}
+
+/* Owe containers */
+body.settlements-page #youOweList,
+body.settlements-page #othersOweYouList {
+    width: 100%;
+}
+
+/* Individual person settlement cards */
+body.settlements-page .settlement-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 0 0 16px;
+    padding: 20px;
+
+    background: #172554;
+    border: 1px solid #3157a8;
+    border-radius: 14px;
+}
+
+/* Person name */
+body.settlements-page .settlement-card h3 {
+    margin: 0 0 8px;
+    color: #bfdbfe;
+    font-size: 21px;
+}
+
+/* Amount text */
+body.settlements-page .settlement-card p {
+    margin: 8px 0;
+    color: #e2e8f0;
+    font-size: 16px;
+}
+
+/* Group breakdown */
+body.settlements-page .group-breakdown {
+    margin-top: 12px;
+    padding: 12px 15px;
+
+    background: #0f1b38;
+    border-radius: 10px;
+}
+
+body.settlements-page .group-breakdown p,
+body.settlements-page .group-breakdown li {
+    color: #cbd5e1;
+}
+
+/* Buttons */
+body.settlements-page button {
+    margin-top: 12px;
+    padding: 11px 20px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+body.settlements-page button:hover {
+    background: #3b82f6;
+    transform: translateY(-1px);
+}
+
+/* Reminder button */
+body.settlements-page #reminderSection button {
+    background: #dc5a5a;
+}
+
+body.settlements-page #reminderSection button:hover {
+    background: #ef6464;
+}
+
+/* Empty states */
+body.settlements-page #youOweList > p,
+body.settlements-page #othersOweYouList > p {
+    margin: 0;
+    padding: 20px;
+
+    color: #cbd5e1;
+    text-align: center;
+
+    background: #0f1b38;
+    border-radius: 12px;
+}
+
+/* Settlement summary */
+body.settlements-page #settlementSummary {
+    text-align: center;
+}
+
+/* Summary values */
+body.settlements-page #settlementSummary > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 650px;
+    margin: 12px auto;
+
+    padding: 15px 20px;
+
+    box-sizing: border-box;
+
+    background: #172554;
+    border: 1px solid #3157a8;
+    border-radius: 12px;
+}
+
+body.settlements-page #settlementSummary span:first-child {
+    color: #cbd5e1;
+    font-size: 16px;
+}
+
+body.settlements-page #settlementSummary span:last-child {
+    color: #bfdbfe;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Net balance */
+body.settlements-page #netBalance {
+    display: inline-block;
+
+    min-width: 120px;
+    padding: 10px 18px;
+
+    background: #172554;
+    border: 1px solid #3b82f6;
+    border-radius: 10px;
+
+    color: #bfdbfe;
+    font-weight: 700;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    body.settlements-page main {
+        width: 94%;
+    }
+
+    body.settlements-page header {
+        width: 94%;
+        padding: 30px 15px;
+    }
+
+    body.settlements-page header h1 {
+        font-size: 34px;
+    }
+
+    body.settlements-page main > section {
+        padding: 20px;
+    }
+
+    body.settlements-page #settlementSummary > div {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+}
