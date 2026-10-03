@@ -298,6 +298,16 @@ function renderSmartSplit() {
 
 
     // =================================================
+    // DEBUG - TEMPORARY
+    // =================================================
+
+    console.log("GROUP:", group);
+    console.log("ALL EXPENSES:", SmartSplit.expenses());
+    console.log("GROUP EXPENSES:", expenses);
+    console.log("SELECTED GROUP:", SmartSplit.selectedGroupId());
+
+
+    // =================================================
     // PAID LIST
     // =================================================
 
