@@ -104,7 +104,22 @@ createGroupForm.addEventListener("submit", async function (event) {
 
 
     // ===============================
-    // SEND GROUP TO FLASK
+    // SAVE GROUP TO LOCALSTORAGE
+    // ===============================
+
+    let groups =
+        JSON.parse(localStorage.getItem("groups")) || [];
+
+    groups.push(newGroup);
+
+    localStorage.setItem(
+        "groups",
+        JSON.stringify(groups)
+    );
+
+
+    // ===============================
+    // OPTIONAL FLASK BACKEND
     // ===============================
 
     try {
@@ -122,54 +137,29 @@ createGroupForm.addEventListener("submit", async function (event) {
             }
         );
 
+        if (response.ok) {
 
-        const data = await response.json();
+            console.log(
+                "Group also sent to Flask backend."
+            );
 
-        console.log("Flask response:", data);
-
-
-        // ===============================
-        // CHECK FLASK RESPONSE
-        // ===============================
-
-        if (!response.ok) {
-
-            alert("Failed to send group to backend.");
-
-            return;
         }
-
-
-        // ===============================
-        // KEEP LOCALSTORAGE FOR NOW
-        // ===============================
-
-        let groups =
-            JSON.parse(localStorage.getItem("groups")) || [];
-
-        groups.push(newGroup);
-
-        localStorage.setItem(
-            "groups",
-            JSON.stringify(groups)
-        );
-
-
-        // ===============================
-        // SUCCESS
-        // ===============================
-
-        alert("Group created successfully!");
-
-        window.location.href = "group.html";
-
 
     } catch (error) {
 
-        console.error("Backend error:", error);
-
-        alert("Could not connect to Flask backend.");
+        console.log(
+            "Flask unavailable. Using localStorage for demo."
+        );
 
     }
+
+
+    // ===============================
+    // SUCCESS
+    // ===============================
+
+    alert("Group created successfully!");
+
+    window.location.href = "group.html";
 
 });

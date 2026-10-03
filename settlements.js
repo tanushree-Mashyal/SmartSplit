@@ -54,7 +54,8 @@ function getYourName() {
 
 
 // ==========================================
-// FIND SHARE CASE-INSENSITIVELY
+// GET SHARE
+// Case-insensitive
 // ==========================================
 
 function getShare(shares, personName) {
@@ -87,7 +88,7 @@ function getShare(shares, personName) {
 
 
 // ==========================================
-// FIND ORIGINAL PERSON NAME
+// GET ORIGINAL STORED PERSON NAME
 // ==========================================
 
 function getStoredPersonName(
@@ -123,21 +124,27 @@ function getStoredPersonName(
 
 
 // ==========================================
-// FIND GROUP NAME
+// GET GROUP NAME
 // ==========================================
 
 function getGroupName(groupId) {
+
+    // Old expenses may not have a groupId.
+    if (!groupId) {
+        return "Unassigned Group";
+    }
 
     const groups =
         SmartSplit.groups();
 
     const group =
-        groups.find(function (g) {
+        groups.find(function (group) {
 
-            return String(g.id) ===
+            return String(group.id) ===
                 String(groupId);
 
         });
+
 
     if (group) {
 
@@ -149,15 +156,22 @@ function getGroupName(groupId) {
 
     }
 
+
     return "Unknown Group";
 }
 
 
 // ==========================================
-// CALCULATE DIRECT SETTLEMENT BALANCES
+// CALCULATE SETTLEMENTS
 //
-// Positive = You owe that person
-// Negative = That person owes you
+// Positive balance:
+// You owe that person.
+//
+// Negative balance:
+// That person owes you.
+//
+// Also stores every expense so that
+// the UI can show the reason.
 // ==========================================
 
 function calculateSettlementBalances() {
@@ -165,32 +179,14 @@ function calculateSettlementBalances() {
     const expenses =
         SmartSplit.expenses();
 
-    const groups =
-        SmartSplit.groups();
-
     const yourName =
         getYourName();
 
+    const yourNameLower =
+        yourName.toLowerCase();
+
+
     const balances = {};
-
-    /*
-        We also keep a breakdown.
-
-        Example:
-
-        breakdown["Sharvani"] = [
-            {
-                groupId: 1,
-                groupName: "College Friends",
-                amount: 200
-            },
-            {
-                groupId: 2,
-                groupName: "Trip",
-                amount: 300
-            }
-        ]
-    */
 
     const breakdown = {};
 
@@ -201,28 +197,6 @@ function calculateSettlementBalances() {
 
     expenses.forEach(function (expense) {
 
-        // ======================================
-        // CHECK GROUP
-        // ======================================
-
-        const groupExists =
-            groups.some(function (group) {
-
-                return String(group.id) ===
-                    String(expense.groupId);
-
-            });
-
-
-        if (!groupExists) {
-            return;
-        }
-
-
-        // ======================================
-        // EXPENSE DATA
-        // ======================================
-
         const people =
             expense.people || [];
 
@@ -230,7 +204,7 @@ function calculateSettlementBalances() {
             expense.shares || {};
 
         const paidBy =
-            expense.paidBy;
+            (expense.paidBy || "").trim();
 
 
         if (!paidBy) {
@@ -238,31 +212,30 @@ function calculateSettlementBalances() {
         }
 
 
-        // ======================================
-        // FIND YOUR SHARE
-        // ======================================
-
-        const yourShare =
-            getShare(
-                shares,
-                yourName
-            );
+        const paidByLower =
+            paidBy.toLowerCase();
 
 
-        // You are not part of this expense
-        if (yourShare <= 0) {
-            return;
-        }
-
-
-        // ======================================
+        // ==================================
         // SOMEONE ELSE PAID
-        // ======================================
+        // ==================================
 
         if (
-            paidBy.trim().toLowerCase() !==
-            yourName.trim().toLowerCase()
+            paidByLower !==
+            yourNameLower
         ) {
+
+            const yourShare =
+                getShare(
+                    shares,
+                    yourName
+                );
+
+
+            if (yourShare <= 0) {
+                return;
+            }
+
 
             const payer =
                 getStoredPersonName(
@@ -271,58 +244,76 @@ function calculateSettlementBalances() {
                 );
 
 
-            // Initialize balance
-            if (!balances[payer]) {
+            if (
+                balances[payer] ===
+                undefined
+            ) {
+
                 balances[payer] = 0;
+
             }
 
 
-            // You owe payer
+            // You owe the payer
             balances[payer] +=
                 yourShare;
 
 
-            // ==================================
-            // GROUP BREAKDOWN
-            // ==================================
-
+            // Create breakdown entry
             if (!breakdown[payer]) {
                 breakdown[payer] = [];
             }
 
+
             breakdown[payer].push({
 
-                groupId:
-                    expense.groupId,
+                expenseName:
+                    expense.expenseName ||
+                    "Expense",
+
+                amount:
+                    yourShare,
+
+                type:
+                    "owe",
+
+                paidBy:
+                    paidBy,
 
                 groupName:
                     getGroupName(
                         expense.groupId
                     ),
 
-                amount:
-                    yourShare,
-
-                type:
-                    "owe"
+                date:
+                    expense.date || ""
 
             });
 
         }
 
 
-        // ======================================
+        // ==================================
         // YOU PAID
-        // ======================================
+        // ==================================
 
         else {
 
             people.forEach(function (person) {
 
+                const personName =
+                    (person || "").trim();
+
+
+                if (!personName) {
+                    return;
+                }
+
+
                 // Ignore yourself
                 if (
-                    person.trim().toLowerCase() ===
-                    yourName.trim().toLowerCase()
+                    personName.toLowerCase() ===
+                    yourNameLower
                 ) {
 
                     return;
@@ -333,7 +324,7 @@ function calculateSettlementBalances() {
                 const theirShare =
                     getShare(
                         shares,
-                        person
+                        personName
                     );
 
 
@@ -345,13 +336,17 @@ function calculateSettlementBalances() {
                 const storedPerson =
                     getStoredPersonName(
                         shares,
-                        person
+                        personName
                     );
 
 
-                // Initialize balance
-                if (!balances[storedPerson]) {
+                if (
+                    balances[storedPerson] ===
+                    undefined
+                ) {
+
                     balances[storedPerson] = 0;
+
                 }
 
 
@@ -360,29 +355,38 @@ function calculateSettlementBalances() {
                     theirShare;
 
 
-                // ==================================
-                // GROUP BREAKDOWN
-                // ==================================
+                // Create breakdown entry
+                if (
+                    !breakdown[storedPerson]
+                ) {
 
-                if (!breakdown[storedPerson]) {
                     breakdown[storedPerson] = [];
+
                 }
+
 
                 breakdown[storedPerson].push({
 
-                    groupId:
-                        expense.groupId,
+                    expenseName:
+                        expense.expenseName ||
+                        "Expense",
+
+                    amount:
+                        theirShare,
+
+                    type:
+                        "receive",
+
+                    paidBy:
+                        paidBy,
 
                     groupName:
                         getGroupName(
                             expense.groupId
                         ),
 
-                    amount:
-                        theirShare,
-
-                    type:
-                        "receive"
+                    date:
+                        expense.date || ""
 
                 });
 
@@ -394,54 +398,14 @@ function calculateSettlementBalances() {
 
 
     return {
-        balances: balances,
-        breakdown: breakdown
+
+        balances:
+            balances,
+
+        breakdown:
+            breakdown
+
     };
-}
-
-
-// ==========================================
-// COMBINE SAME PERSON + SAME GROUP
-// ==========================================
-
-function combineBreakdownItems(items) {
-
-    const combined = {};
-
-    items.forEach(function (item) {
-
-        const key =
-            String(item.groupId) +
-            "_" +
-            item.type;
-
-        if (!combined[key]) {
-
-            combined[key] = {
-
-                groupId:
-                    item.groupId,
-
-                groupName:
-                    item.groupName,
-
-                amount:
-                    0,
-
-                type:
-                    item.type
-
-            };
-
-        }
-
-        combined[key].amount +=
-            Number(item.amount || 0);
-
-    });
-
-
-    return Object.values(combined);
 }
 
 
@@ -451,7 +415,7 @@ function combineBreakdownItems(items) {
 
 function getPeopleYouOwe(balances) {
 
-    const peopleYouOwe = [];
+    const result = [];
 
 
     Object.entries(balances).forEach(
@@ -459,7 +423,7 @@ function getPeopleYouOwe(balances) {
 
             if (balance > 0.005) {
 
-                peopleYouOwe.push({
+                result.push({
 
                     person:
                         person,
@@ -475,7 +439,7 @@ function getPeopleYouOwe(balances) {
     );
 
 
-    peopleYouOwe.sort(
+    result.sort(
         function (a, b) {
 
             return b.amount -
@@ -485,7 +449,7 @@ function getPeopleYouOwe(balances) {
     );
 
 
-    return peopleYouOwe;
+    return result;
 }
 
 
@@ -495,7 +459,7 @@ function getPeopleYouOwe(balances) {
 
 function getPeopleWhoOweYou(balances) {
 
-    const peopleWhoOweYou = [];
+    const result = [];
 
 
     Object.entries(balances).forEach(
@@ -503,7 +467,7 @@ function getPeopleWhoOweYou(balances) {
 
             if (balance < -0.005) {
 
-                peopleWhoOweYou.push({
+                result.push({
 
                     person:
                         person,
@@ -519,7 +483,7 @@ function getPeopleWhoOweYou(balances) {
     );
 
 
-    peopleWhoOweYou.sort(
+    result.sort(
         function (a, b) {
 
             return b.amount -
@@ -529,12 +493,12 @@ function getPeopleWhoOweYou(balances) {
     );
 
 
-    return peopleWhoOweYou;
+    return result;
 }
 
 
 // ==========================================
-// CREATE PAYMENT REMINDER AREA
+// CREATE REMINDER AREA
 // ==========================================
 
 function createReminderArea() {
@@ -555,9 +519,6 @@ function createReminderArea() {
 
     area.id =
         "paymentReminderArea";
-
-    area.style.marginBottom =
-        "20px";
 
 
     const heading =
@@ -597,7 +558,6 @@ function createReminderArea() {
     );
 
 
-    // Put reminder before You Owe
     youOweList.parentElement.insertBefore(
         area,
         youOweList
@@ -632,10 +592,6 @@ function updateReminderArea() {
         SmartSplit.profile();
 
 
-    // ======================================
-    // REMINDER DISABLED
-    // ======================================
-
     if (!profile.reminder) {
 
         message.textContent =
@@ -643,10 +599,6 @@ function updateReminderArea() {
 
         button.textContent =
             "Enable in Profile";
-
-        button.disabled =
-            false;
-
 
         button.onclick =
             function () {
@@ -656,17 +608,8 @@ function updateReminderArea() {
 
             };
 
-
         return;
     }
-
-
-    // ======================================
-    // REMINDER ENABLED
-    // ======================================
-
-    button.disabled =
-        false;
 
 
     const mutedUntil =
@@ -676,10 +619,6 @@ function updateReminderArea() {
             )
         ) || 0;
 
-
-    // ======================================
-    // CURRENTLY MUTED
-    // ======================================
 
     if (
         Date.now() <
@@ -713,12 +652,6 @@ function updateReminderArea() {
                     MUTE_REMINDER_KEY
                 );
 
-
-                alert(
-                    "Payment reminders are enabled again."
-                );
-
-
                 updateReminderArea();
 
             };
@@ -727,10 +660,6 @@ function updateReminderArea() {
         return;
     }
 
-
-    // ======================================
-    // NOT MUTED
-    // ======================================
 
     message.textContent =
         "You will receive a reminder every 24 hours while you have pending payments.";
@@ -752,20 +681,14 @@ function updateReminderArea() {
             );
 
 
-            alert(
-                "Payment reminders muted for 24 hours."
-            );
-
-
             updateReminderArea();
 
         };
-
 }
 
 
 // ==========================================
-// SHOW AUTOMATIC PAYMENT REMINDER
+// PAYMENT REMINDER
 // ==========================================
 
 function showPaymentReminder(
@@ -806,18 +729,15 @@ function showPaymentReminder(
         ) || 0;
 
 
-    // Muted
     if (
         now <
         mutedUntil
     ) {
 
         return;
-
     }
 
 
-    // Already shown within 24 hours
     if (
         lastReminder &&
         now - lastReminder <
@@ -825,11 +745,10 @@ function showPaymentReminder(
     ) {
 
         return;
-
     }
 
 
-    const reminderLines =
+    const lines =
         peopleYouOwe.map(
             function (item) {
 
@@ -848,8 +767,7 @@ function showPaymentReminder(
     alert(
         "Payment Reminder\n\n" +
         "You still owe:\n\n" +
-        reminderLines.join("\n") +
-        "\n\nPlease settle your pending payments."
+        lines.join("\n")
     );
 
 
@@ -857,15 +775,14 @@ function showPaymentReminder(
         LAST_REMINDER_KEY,
         String(now)
     );
-
 }
 
 
 // ==========================================
-// CREATE GROUP BREAKDOWN
+// CREATE EXPENSE BREAKDOWN
 // ==========================================
 
-function createGroupBreakdown(
+function createExpenseBreakdown(
     person,
     breakdownItems
 ) {
@@ -873,15 +790,12 @@ function createGroupBreakdown(
     const container =
         document.createElement("div");
 
-    container.style.marginTop =
-        "10px";
-
 
     const heading =
         document.createElement("strong");
 
     heading.textContent =
-        "Group breakdown:";
+        "Expense breakdown:";
 
 
     container.appendChild(
@@ -893,31 +807,49 @@ function createGroupBreakdown(
         document.createElement("ul");
 
 
-    const combined =
-        combineBreakdownItems(
-            breakdownItems
-        );
+    breakdownItems.forEach(
+        function (item) {
+
+            const li =
+                document.createElement("li");
 
 
-    combined.forEach(function (item) {
+            const direction =
+                item.type === "owe"
+                    ? "You owe"
+                    : "You paid for";
 
-        const li =
-            document.createElement("li");
+
+            let text =
+                `${item.expenseName} — ${direction} ${SmartSplit.money(item.amount)}`;
 
 
-        li.textContent =
-            item.groupName +
-            " — " +
-            SmartSplit.money(
-                item.amount
+            if (item.groupName) {
+
+                text +=
+                    ` (${item.groupName})`;
+
+            }
+
+
+            if (item.date) {
+
+                text +=
+                    ` — ${item.date}`;
+
+            }
+
+
+            li.textContent =
+                text;
+
+
+            list.appendChild(
+                li
             );
 
-
-        list.appendChild(
-            li
-        );
-
-    });
+        }
+    );
 
 
     container.appendChild(
@@ -946,20 +878,12 @@ function createYouOweCard(
         "settlement-card";
 
 
-    // ======================================
-    // PERSON
-    // ======================================
-
     const title =
         document.createElement("h3");
 
     title.textContent =
         person;
 
-
-    // ======================================
-    // CLEAR MESSAGE
-    // ======================================
 
     const message =
         document.createElement("p");
@@ -968,19 +892,15 @@ function createYouOweCard(
         `You owe ${person} ${SmartSplit.money(amount)}`;
 
 
-    // ======================================
-    // GROUP BREAKDOWN
-    // ======================================
-
     const breakdown =
-        createGroupBreakdown(
+        createExpenseBreakdown(
             person,
             breakdownItems
         );
 
 
     // ======================================
-    // SETTLE BUTTON
+    // PAYMENT BUTTON
     // ======================================
 
     const settleButton =
@@ -994,47 +914,35 @@ function createYouOweCard(
 
 
     // ======================================
-    // PAYMENT AREA
+    // PAYMENT BOX
     // ======================================
 
     const paymentBox =
         document.createElement("div");
 
+    paymentBox.className =
+        "payment-box";
+
     paymentBox.style.display =
         "none";
 
-    paymentBox.style.marginTop =
-        "10px";
 
-
-    // ======================================
-    // UPI LABEL
-    // ======================================
-
-    const upiLabel =
+    const label =
         document.createElement("label");
 
-    upiLabel.textContent =
+    label.textContent =
         `${person}'s UPI ID:`;
 
 
-    // ======================================
-    // UPI INPUT
-    // ======================================
-
-    const upiInput =
+    const input =
         document.createElement("input");
 
-    upiInput.type =
+    input.type =
         "text";
 
-    upiInput.placeholder =
+    input.placeholder =
         "example@upi";
 
-
-    // ======================================
-    // AMOUNT DISPLAY
-    // ======================================
 
     const amountText =
         document.createElement("p");
@@ -1042,10 +950,6 @@ function createYouOweCard(
     amountText.textContent =
         `Payment amount: ${SmartSplit.money(amount)}`;
 
-
-    // ======================================
-    // PAY BUTTON
-    // ======================================
 
     const payButton =
         document.createElement("button");
@@ -1056,10 +960,6 @@ function createYouOweCard(
     payButton.textContent =
         "Pay via PhonePe / UPI";
 
-
-    // ======================================
-    // OPEN / CLOSE PAYMENT AREA
-    // ======================================
 
     settleButton.addEventListener(
         "click",
@@ -1076,9 +976,7 @@ function createYouOweCard(
                 settleButton.textContent =
                     "Close Payment";
 
-            }
-
-            else {
+            } else {
 
                 paymentBox.style.display =
                     "none";
@@ -1092,10 +990,6 @@ function createYouOweCard(
     );
 
 
-    // ======================================
-    // PAY
-    // ======================================
-
     payButton.addEventListener(
         "click",
         function () {
@@ -1103,7 +997,7 @@ function createYouOweCard(
             payWithPhonePe(
                 person,
                 amount,
-                upiInput.value.trim()
+                input.value.trim()
             );
 
         }
@@ -1111,19 +1005,11 @@ function createYouOweCard(
 
 
     paymentBox.appendChild(
-        upiLabel
+        label
     );
 
     paymentBox.appendChild(
-        document.createElement("br")
-    );
-
-    paymentBox.appendChild(
-        upiInput
-    );
-
-    paymentBox.appendChild(
-        document.createElement("br")
+        input
     );
 
     paymentBox.appendChild(
@@ -1177,20 +1063,12 @@ function createOthersOweCard(
         "settlement-card";
 
 
-    // ======================================
-    // PERSON
-    // ======================================
-
     const title =
         document.createElement("h3");
 
     title.textContent =
         person;
 
-
-    // ======================================
-    // CLEAR MESSAGE
-    // ======================================
 
     const message =
         document.createElement("p");
@@ -1199,20 +1077,12 @@ function createOthersOweCard(
         `${person} owes you ${SmartSplit.money(amount)}`;
 
 
-    // ======================================
-    // GROUP BREAKDOWN
-    // ======================================
-
     const breakdown =
-        createGroupBreakdown(
+        createExpenseBreakdown(
             person,
             breakdownItems
         );
 
-
-    // ======================================
-    // SETTLE BUTTON
-    // ======================================
 
     const settleButton =
         document.createElement("button");
@@ -1278,10 +1148,6 @@ function payWithPhonePe(
     upiId
 ) {
 
-    // ======================================
-    // CHECK UPI
-    // ======================================
-
     if (!upiId) {
 
         alert(
@@ -1289,13 +1155,8 @@ function payWithPhonePe(
         );
 
         return;
-
     }
 
-
-    // ======================================
-    // BASIC VALIDATION
-    // ======================================
 
     if (!upiId.includes("@")) {
 
@@ -1304,13 +1165,8 @@ function payWithPhonePe(
         );
 
         return;
-
     }
 
-
-    // ======================================
-    // UPI PAYMENT URL
-    // ======================================
 
     const upiUrl =
         "upi://pay" +
@@ -1325,13 +1181,8 @@ function payWithPhonePe(
         "&cu=INR";
 
 
-    // ======================================
-    // OPEN UPI APP
-    // ======================================
-
     window.location.href =
         upiUrl;
-
 }
 
 
@@ -1341,17 +1192,12 @@ function payWithPhonePe(
 
 function displaySettlements() {
 
-    // ======================================
-    // CALCULATE
-    // ======================================
-
     const result =
         calculateSettlementBalances();
 
 
     const balances =
         result.balances;
-
 
     const breakdown =
         result.breakdown;
@@ -1370,7 +1216,7 @@ function displaySettlements() {
 
 
     // ======================================
-    // CLEAR OLD DATA
+    // CLEAR OLD CARDS
     // ======================================
 
     youOweList.innerHTML =
@@ -1382,7 +1228,6 @@ function displaySettlements() {
 
     let youOweAmount =
         0;
-
 
     let othersOweYouAmount =
         0;
@@ -1443,7 +1288,7 @@ function displaySettlements() {
 
 
     // ======================================
-    // EMPTY YOU OWE
+    // EMPTY STATES
     // ======================================
 
     if (
@@ -1455,10 +1300,6 @@ function displaySettlements() {
 
     }
 
-
-    // ======================================
-    // EMPTY OTHERS OWE YOU
-    // ======================================
 
     if (
         !peopleWhoOweYou.length
@@ -1531,11 +1372,9 @@ function displaySettlements() {
 
     updateReminderArea();
 
-
     showPaymentReminder(
         peopleYouOwe
     );
-
 }
 
 
@@ -1547,7 +1386,7 @@ displaySettlements();
 
 
 // ==========================================
-// UPDATE WHEN DATA CHANGES
+// UPDATE WHEN SMARTSPLIT DATA CHANGES
 // ==========================================
 
 window.addEventListener(
